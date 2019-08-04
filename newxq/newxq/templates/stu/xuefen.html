@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% load static %}
+{% load myfilter %}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我的学分</title>
+
+<link href="{% static 'css/stu_css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/stu_css/datepicker3.css' %}" rel="stylesheet">
+<link href="{% static 'css/stu_css/bootstrap-table.css' %}" rel="stylesheet">
+<link href="{% static 'css/mains/main.css' %}" rel="stylesheet">
+<link href="{% static 'css/stu_css/me.css' %}" rel="stylesheet">
+<link href="{% static 'css/stu_css/ace1.min.css' %}" rel="stylesheet">
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+<!--header start here-->
+<div class="headerer" style="position: fixed;top: 0;width: 100%;">
+	<div class="container" style="width: 100%;padding: 0 30px;box-sizing: border-box;">
+		<div class="header-main">
+			<div class="logo">
+				<a href="{% url 'main' %}" style="font-size: 25px;text-decoration: none"> 学情分析与助学平台 </a>
+			</div>
+			<div class="head-right">
+				<div class="top-nav">
+					<span class="menu"> <img src="{% static 'images/icon.png' %}" alt="" /></span>
+							<ul class="res">
+								<li><a  href="{% url 'main' %}">个人主页</a></li>
+								<li><a class="active" href="{% url 'stcred' %}">我的学分</a></li>
+								 <li><a href="{% url 'course' %}">我的课程</a></li>
+								<li><a href="{% url 'inst' %}">专业兴趣</a></li>
+                                <li><a href="https://helpstudy.cn/thirdAuth/1/{{ info.st_id }}/{{ range_code }}">职业规划</a></li>
+                                <li><a href="https://helpstudy.cn/thirdAuth/1/{{ info.st_id }}/{{ range_code }}">学习计划</a></li>
+                                <li><a href="https://helpstudy.cn/thirdAuth/1/{{ info.st_id }}/{{ range_code }}">在线学习</a></li>
+                            </ul>
+
+
+
+				</div>
+
+{#				<div style="position: relative;width:37px;height:37px;display: inline-block;float: right;padding:5px;margin:30px 70px 0 0;background: #fff;border-radius: 30px;overflow: hidden;">#}
+{#					<span class="glyphicon glyphicon-bell" style="font-size: 25px;margin:2px 0 0 2px;"></span>#}
+{#					<span style="position: absolute;right: 5px;top: 5px;font-size: 12px;color: #fff;display: inline-block;width: 15px;height: 15px;background: red;border-radius: 15px;text-align: center;">3</span>#}
+{#				</div>#}
+
+
+				<div class="search-box">
+
+
+					<div id="sb-search" class="sb-search">
+						<p><a style="text-decoration: none; display: inline-block;width: 100%;height: 100%;line-height: 40px;padding: 0;" href="{% url 'logout' %}">退出</a></p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!--header end here-->
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+
+	<ul class="nav menu logres">
+				<li style="width:100%;height:150px;">
+					<p style="width:120px;height:100%"><img style="width:100%;height:100%;" src="{% static 'images/f4.jpg' %}" alt=""></p>
+				</li>
+				<li><span>姓名</span><span>{{ info.name }}</span></li>
+				<li><span>学号</span><span>{{ info.st_id }}</span></li>
+				<li><span>专业</span><span>{{ info.major }}</span></li>
+                <li><span>班级</span><span>{{ info.myclass }}</span></li>
+                <li style="display:none;"></li>
+				<!--<li><a style="display: inline-block;width: 100%;height: 100%;line-height: 40px;padding: 0;" href="login.html">退出登录</a></li>-->
+			</ul>
+
+
+	<div class="col-md-12">
+				<div class="panel" style="border:0;box-shadow: none">
+
+					<div class="row no-padding" style="border:0;">
+						<!--<div class="text-muted" style="font-size:18px;line-height:2.5">预警等级:</div>-->
+						<!-- 蓝 -->
+						<button style="width:100%;float:right;border:0;display:none;" type="button" class="btn btn-success " id="showblue"  onclick="OpenBox(this)"><span style="float: left;">预警等级：</span>{{ student_warm_leve|replace_str }}</button>
+						<!-- 橙 -->
+						<button style="width:100%;float:right;display:none;" type="button" id="showorg" class="btn btn-warning"  onclick="OpenBox(this)"><span style="float: left;">预警等级：</span>{{ student_warm_leve|replace_str }}</button>
+						<!-- 红 -->
+						<button style="width:100%;float:right;display:none;" type="button" id="showred" class="btn btn-danger" onclick="OpenBox(this)"><span style="float: left;">预警等级：</span>{{ student_warm_leve|replace_str }}</button>
+					</div>
+					<div class="row no-padding" style="border:0;margin-top: 10px;">
+						<!-- 蓝 -->
+						<button style="width:100%;float:right;border:0;" type="button" class="btn btn-primary " id="bf"  onclick="OpenBox(this)"> 我 的 帮 扶 </button>
+
+					</div>
+				</div>
+			</div>
+</div>
+<div class="dlog-box" style="display: none;width: 100%;height: 100%;background: rgba(0,0,0,.4);position: fixed;top: 0;left: 0;z-index:99999;">
+	<div class="dlog-box-in" style="width: 60%;height: 60%;background: #fff;position: absolute;top: 20%;left: 20%;border-radius: 5px;">
+		<div class="dlog-box-in-title" style="width: 100%;height: 35px;border-bottom:1px solid #ccc;box-sizing: border-box;">
+			<span style="float: left;font-weight: bold;line-height: 35px;margin:0 15px;">数据详情</span>
+			<i class="glyphicon glyphicon-remove" style="color: orangered;float: right;margin: 7px 10px;font-size: 18px;" onclick="Close()"></i>
+		</div>
+		<div class="dlog-conctent" style="height: calc(100% - 35px);padding: 10px;">
+
+		</div>
+	</div>
+</div>
+
+<script>
+	function OpenBox(test){
+		console.log(test.id);
+
+		let datahtmls;
+
+		$(".dlog-box").css({ "display": "block","transition":" all 1s" });
+
+		if(test.id == 'bf'){	////帮扶
+			$(".dlog-box-in-title span").text("我的帮扶");
+
+			let assist_teacher_info = {{ assist_teacher_info|safe }};
+                    let warm_leve = {{ student_warm_leve|safe }};
+
+					//			请求来的数据自己组装    格式如下
+					datahtmls = `
+						<table border="1" style="width: 100%;">
+							<thead>
+								<tr>
+									<th>预警等级</th>
+									<th>帮扶老师</th>
+									<th>老师电话</th>
+									<th>专业系别</th>
+									<th>帮扶地点</th>
+									<th>备注</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>${warm_leve}</td>
+									<td>${assist_teacher_info[0]}</td>
+									<td>${assist_teacher_info[1]}</td>
+									<td>${assist_teacher_info[2]}</td>
+									<td>${assist_teacher_info[3]}</td>
+									<td>备注内容</td>
+								</tr>
+
+							</tbody>
+						</table>
+
+					`
+
+				}else if(test.id == 'showblue'){  ////预警详情
+					$(".dlog-box-in-title span").text("预警详情");
+
+					//			请求来的数据自己组装    格式如下
+					let all_faile_courese = {{ all_faile_courese|safe }};
+					let fail_exam_sum = {{ fail_exam_sum|safe }};
+                    let student_warm_leve = {{ student_warm_leve|safe }};
+
+                    let datahtmlmed = "";
+                    for (let i=0;i<all_faile_courese.length;i++){
+                        contents = all_faile_courese[i];
+                        datahtmlmed += `<tr>
+									<td>${contents[0]}</td>
+									<td>${contents[1]}</td>
+									<td>${contents[2]}</td>
+									<td>${contents[3]}</td>
+									<td>${contents[4]}</td>
+									<td>备注</td>
+								</tr>`;
+
+                    }
+
+					 let datahtmlstart = `
+						<div border="1" style="width: 100%;">
+						    <p>预警等级:${student_warm_leve}</p>
+						    <p>挂科学分：${fail_exam_sum}</p>
+						</div>
+                        <div>------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+						<div>
+						    <b>挂科课程详情</b>
+						</div>
+						<table border="1" style="width: 100%;">
+							<thead>
+								<tr>
+								    <th>学年</th>
+									<th>学期</th>
+									<th>课程名</th>
+									<th>学分</th>
+									<th>成绩</th>
+									<th>备注</th>
+								</tr>
+							</thead>
+							<tbody>
+							`;
+
+                    let datahtmlsend = `</tbody>
+						</table>`;
+
+                    datahtmls = datahtmlstart+datahtmlmed+datahtmlsend
+
+				}else if(test.id == 'showorg'){  ////预警详情
+					$(".dlog-box-in-title span").text("预警详情");
+
+					//			请求来的数据自己组装    格式如下
+					let all_faile_courese = {{ all_faile_courese|safe }};
+                    let fail_exam_sum = {{ fail_exam_sum|safe }};
+                    let student_warm_leve = {{ student_warm_leve|safe }};
+                    let datahtmlmed = '';
+                    for (let i=0;i<all_faile_courese.length;i++){
+                        contents = all_faile_courese[i];
+                        datahtmlmed += `<tr>
+									<td>${contents[0]}</td>
+									<td>${contents[1]}</td>
+									<td>${contents[2]}</td>
+									<td>${contents[3]}</td>
+									<td>${contents[4]}</td>
+									<td>备注</td>
+								</tr>`;
+
+                    }
+
+					 let datahtmlstart = `
+						<div border="1" style="width: 100%;">
+						    <p>预警等级:${student_warm_leve}</p>
+						    <p>挂科学分：${fail_exam_sum}</p>
+						</div>
+                        <div>------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+						<div>
+						    <b>挂科课程详情</b>
+						</div>
+						<table border="1" style="width: 100%;">
+							<thead>
+								<tr>
+								    <th>学年</th>
+									<th>学期</th>
+									<th>课程名</th>
+									<th>学分</th>
+									<th>成绩</th>
+									<th>备注</th>
+								</tr>
+							</thead>
+							<tbody>
+							`;
+
+                    let datahtmlsend = `</tbody>
+						</table>`;
+
+                    datahtmls = datahtmlstart+datahtmlmed+datahtmlsend
+
+				}else if(test.id == 'showred'){  ////预警详情
+					$(".dlog-box-in-title span").text("预警详情");
+
+					//			请求来的数据自己组装    格式如下
+                    let all_faile_courese = {{ all_faile_courese|safe }};
+                    let fail_exam_sum = {{ fail_exam_sum|safe }};
+                    let student_warm_leve = {{ student_warm_leve|safe }};
+                    let datahtmlmed = '';
+                    for (let i=0;i<all_faile_courese.length;i++){
+                        contents = all_faile_courese[i];
+                        datahtmlmed += `<tr>
+									<td>${contents[0]}</td>
+									<td>${contents[1]}</td>
+									<td>${contents[2]}</td>
+									<td>${contents[3]}</td>
+									<td>${contents[4]}</td>
+									<td>备注</td>
+								</tr>`;
+
+                    }
+
+					 let datahtmlstart = `
+						<div border="1" style="width: 100%;">
+						    <p>预警等级:${student_warm_leve}</p>
+						    <p>挂科学分：${fail_exam_sum}</p>
+						</div>
+                        <div>------------------------------------------------------------------------------------------------------------------------------------------------------</div>
+						<div>
+						    <b>挂科课程详情</b>
+						</div>
+						<table border="1" style="width: 100%;">
+							<thead>
+								<tr>
+								    <th>学年</th>
+									<th>学期</th>
+									<th>课程名</th>
+									<th>学分</th>
+									<th>成绩</th>
+									<th>备注</th>
+								</tr>
+							</thead>
+							<tbody>
+							`;
+
+                    let datahtmlsend = `</tbody>
+						</table>`;
+
+                    datahtmls = datahtmlstart+datahtmlmed+datahtmlsend;
+
+
+				}
+				else if(test.id == 'jobs'){		////相应职位
+					$(".dlog-box-in-title span").text("就业推荐");
+
+					//			请求来的数据自己组装    格式如下
+					datahtmls = `
+
+						数据格式自己组织  动态添加数据的格式:
+						例子:
+						<div> 就业数据开始解析</div>
+						<div> ${test} </div>
+						<div> 就业数据结束解析</div>
+
+					`
+
+				} else if(test.id = 'qbxf'){
+					$(".dlog-box-in-title span").text("学分统计");
+
+					//			请求来的数据自己组装    格式如下
+					datahtmls = `
+
+						数据格式自己组织3434343  动态添加数据的格式:
+						例子:
+						<div> 就业数据开始解析</div>
+						<div> ${test} </div>
+						<div> 学分统计结束解析</div>
+
+					`
+				}
+
+				$(".dlog-conctent").html(datahtmls);
+
+
+			}
+			function Close(){
+				$(".dlog-box").css({ "display": "none","transition":" all 1s" });
+			}
+
+</script>
+
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+				<li class="active">我的学分</li>
+			</ol>
+		</div><!--/.row-->
+
+
+		<div class="main-container" id="main-container">
+			
+
+					<div class="page-content">
+						
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<div class="row" style="height: 100px;">
+									<div class="col-sm-12">
+
+
+
+										<div class="widget-box" style="height: 150px;">
+											<div class="widget-header widget-header-flat widget-header-small">
+												<h5 style="font-size: 150%;">
+													<i class="icon-signal"></i>
+													培养方案要求
+												</h5>
+
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main" style="height:100px;">
+													<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+														<thead>
+															<tr>
+                                                                <th>专业</th>
+                                                                {% for foo in all_creadit %}
+                                                                    <th class="hidden-480">{{ foo.c_type }}</th>
+                                                                {% endfor %}
+												
+																<th class="hidden-480">总学分</th>
+															</tr>
+														</thead>
+
+														<tbody>
+															<tr>
+                                                                <td>{{ info.major }}</td>
+                                                                {% for crt in all_creadit %}
+                                                                    <td>{{ crt.sum_credit }}</td>
+                                                                {% endfor %}
+																<td>{{ sum_creadit }}</td>
+															</tr>
+
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+										</div>
+
+                                        <div class="widget-box" style="height: 150px;">
+                                                <div class="widget-header widget-header-flat widget-header-small">
+                                                    <h5 style="font-size: 150%;">
+                                                        <i class="icon-signal"></i>
+                                                        个人学分情况
+                                                    </h5>
+                                                </div>
+                                                <div class="widget-body">
+                                                    <div class="widget-main" style="height:100px;">
+                                                        <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                                                            <thead>
+															<tr>
+                                                                <th>专业</th>
+                                                                    {% for foo in mycreadit_name %}
+                                                                        <th class="hidden-480">{{ foo }}</th>
+                                                                    {% endfor %}
+                                                                    <th class="hidden-480">总学分</th>
+															</tr>
+														</thead>
+
+														<tbody>
+															<tr>
+                                                                 <td>{{ info.major }}</td>
+                                                                    {% for crt in mycreadit_grade %}
+                                                                        <td>{{ crt }}</td>
+                                                                    {% endfor %}
+                                                                    <td>{{ finished_credit }}</td>
+															</tr>
+
+														</tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                        </div>
+										<div class="widget-header widget-header-flat widget-header-small">
+                                                    <h5 style="font-size: 150%;">
+                                                        <i class="icon-signal"></i>
+                                                        通过的课程
+                                                    </h5>
+                                                </div>
+                                            <div class="table-responsive">
+                                                <div class="table-responsive">
+                                                    <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>课程名</th>
+                                                                <th>课程类型</th>
+                                                                <th class="hidden-480">学年</th>
+                                                                <th class="hidden-480">学期</th>
+                                                                <th class="hidden-480">学分</th>
+                                                                <th class="hidden-480">成绩</th>
+
+
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                        {% for gradeinfo in all_grade %}
+                                                            <tr>
+                                                                <td><a href="#">{{ gradeinfo.title }}</a></td>
+                                                                <td>{{ gradeinfo.c_type }}</td>
+                                                                <td>{{ gradeinfo.year}}</td>
+                                                                <td>{{ gradeinfo.semester }}</td>
+                                                                <td class="hidden-480">{{ gradeinfo.credit }}</td>
+                                                                <td class="hidden-480">{{ gradeinfo.grade }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div><!-- /.table-responsive -->
+
+                                            </div><!-- /.table-responsive -->
+
+									</div>
+                                    
+								</div>
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+			
+				
+					
+				</div>
+			</div>
+		</div><!--/.row-->	
+		
+		
+	</div><!--/.main-->
+    <script src="{% static 'js/admin_js/jquery-2.0.3.min.js' %}"></script>
+	<script src="{% static 'js/stu_js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/stu_js/chart.min.js' %}"></script>
+	<script src="{% static 'js/stu_js/chart-data.js' %}"></script>
+	<script src="{% static 'js/stu_js/easypiechart.js' %}"></script>
+	<script src="{% static 'js/stu_js/easypiechart-data.js' %}"></script>
+	<script src="{% static 'js/stu_js/bootstrap-datepicker.js' %}"></script>
+
+	<script>
+		!function ($) {
+			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
+				$(this).find('em:first').toggleClass("glyphicon-minus");	  
+			}); 
+			$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script>
+
+ <script>
+            let warm_leve ={{ student_warm_leve|safe }};
+            if (warm_leve=="降级预警" || warm_leve=="退学预警"){
+
+                $("#showred").show();
+            }else if(warm_leve==""){
+                $("#showblue").show();
+            }else{
+                $("#showorg").show();
+            }
+    </script>
+</body>
+
+</html>

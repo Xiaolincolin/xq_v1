@@ -1,0 +1,137 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>开源项目</title>
+        <meta name="keywords" content="开源项目" />
+        <meta name="description" content="学情分析与导向式助学平台" />
+        <meta http-equiv="windows-Target " content="_top " />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/nprogress.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/mains/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/me.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/font-awesome.min.css' %}">
+        <link rel="apple-touch-icon-precomposed" href="http://www.muzhuangnet.com/templates/blog//static/images/icon.png">
+        <script src="{% static 'js/admin_js/jquery-2.0.3.min.js' %}"></script>
+        <script src="{% static 'js/stu_js/nprogress.js' %}"></script>
+        <script src="{% static 'js/stu_js/jquery.lazyload.min.js' %}"></script>
+        <link rel="shortcut icon" href="http://www.muzhuangnet.com/favicon.ico">
+        <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?03c61d76c52987c77447b08d61c765d3";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+        <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+        </script>
+
+    </head>
+    <body class="user-select single">
+        <div class="headerer">
+        <div class="container">
+            <div class="header-main">
+                <div class="logo">
+						<a href="{% url 'main' %}" style="font-size: 25px;text-decoration: none"> 学情分析与助学平台 </a>
+					</div>
+					<div class="head-right">
+						<div class="top-nav">
+							<span class="menu"> <img src="{% static 'images/icon.png' %}" alt="" /></span>
+							<ul class="res">
+								<li><a class="active" href="{% url 'main' %}">个人主页</a></li>
+								<li><a href="{% url 'stcred' %}">我的学分</a></li>
+								 <li><a href="{% url 'course' %}">我的课程</a></li>
+								<li><a href="{% url 'inst' %}">专业兴趣</a></li>
+                                <li><a href="https://helpstudy.cn/thirdAuth/1/{{ info.st_id }}/{{ range_code }}">学习状况</a></li>
+                                <li><a href="https://helpstudy.cn/thirdAuth/2/{{ info.st_id }}/{{ range_code }}">学习计划</a></li>
+                                <li><a href="https://helpstudy.cn/thirdAuth/3/{{ info.st_id }}/{{ range_code }}">在线学习</a></li>
+                            </ul>
+                        <!-- script-for-menu -->
+                        <script>
+                            $( "span.menu" ).click(function() {
+                                $( "ul.res" ).slideToggle( 300, function() {
+                                    // Animation complete.
+                                });
+                            });
+                        </script>
+                        <!-- /script-for-menu -->
+                    </div>
+
+                    <div class="social">
+                        <ul >
+                            <li><a class="fa" href="#"> </a></li>
+                            <li><a class="tw" href="#"> </a></li>
+                            <li><a class="p" href="#"> </a></li>
+                        </ul>
+                    </div>
+
+                    <div class="search-box">
+                        <div id="sb-search" class="sb-search">
+                            <form>
+                                <input class="sb-search-input" placeholder="搜索" type="search" name="search" id="search">
+                                <input class="sb-search-submit" type="submit" value="">
+                                <span class="sb-icon-search"> </span>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                    <!-- search-scripts -->
+                    <script src="{% static 'js/stu_js/classie.js' %}"></script>
+                    <script src="{% static 'js/stu_js/uisearch.js' %}"></script>
+                    <script>
+                        new UISearch( document.getElementById( 'sb-search' ) );
+                    </script>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+            <section class="container">
+        <div class="content-wrap">
+            <div class="content">
+            <header class="article-header" style="margin-bottom: 20px;">
+            <h1 class="article-title" style="text-align: center;">{{ project_detail.title }}</h1>
+            <div class="article-meta" style="text-align: center;"> <span class="item article-meta-time">
+              <time class="time" data-toggle="tooltip" data-placement="bottom" title="发表时间"><i class="glyphicon glyphicon-time"></i> {{ project_detail.add_time }}</time>
+              </span> <span class="item article-meta-source" data-toggle="tooltip" data-placement="bottom" title="来源"><i class="glyphicon glyphicon-globe"></i> 原文：{{ project_detail.url }}</span> <span class="item article-meta-category" data-toggle="tooltip" data-placement="bottom" title="学情分析"><i class="glyphicon glyphicon-list"></i> <a href="wwww.newxq.xyz" title="学情分析、助学">学情分析</a></span> <span class="item article-meta-views" data-toggle="tooltip" data-placement="bottom" title="浏览量：{{ project_detail.click_times }}"><i class="glyphicon glyphicon-eye-open"></i> </span> <span class="item article-meta-comment" data-toggle="tooltip" data-placement="bottom" title="评论量"><i class="glyphicon glyphicon-comment"></i></span> </div>
+          </header>
+            <article class="article-content">
+                <p>{{ project_detail.content }}</p>
+            </article>
+        </div>
+        </div>
+    </section>
+
+
+
+
+
+        <footer id="xq_footer" style="background: #121212;">
+            <div class="container">
+              <div class="row" style="padding-top: 10px;border: 0;">
+                  <p style="text-align: center;color: #efefef;">北方民族大学大数据团队 &copy;版权所有</p>
+              </div>
+            </div>
+        </footer>
+        <script src="{% static 'js/stu_js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/stu_js/jquery.ias.js' %}"></script>
+    </body>
+</html>

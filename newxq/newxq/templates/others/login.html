@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        {% load static %}
+		<meta charset="utf-8" />
+		<title>登录</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- basic styles -->
+
+		<link href="{% static 'css/admin_css/bootstrap.min.css' %}" rel="stylesheet" />
+		<link rel="stylesheet" href="{% static 'css/admin_css/font-awesome.min.css' %}" />
+
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+
+		<link rel="stylesheet" href="{% static 'css/admin_css/ace.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/admin_css/ace-rtl.min.css' %}" />
+		<style>
+			.login-container{
+				width: 550px;
+			}
+			#login-box{
+				position: relative;
+				width: 100%;
+			}
+			#myAlert2{
+				width: 100%;
+				display: none;
+				z-index:99999;
+				position: absolute;
+				top:32%;
+				left: 0;
+			}
+		</style>
+	</head>
+
+	<body class="login-layout">
+		<div class="main-container">
+			<div class="main-content">
+				<div class="row">
+					<div class="col-sm-10 col-sm-offset-1">
+						<div class="login-container" style="margin-top: 15%;">
+
+
+							<div class="space-6"></div>
+
+							<div class="position-relative">
+								<div id="login-box" class="login-box visible widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header blue lighter bigger">
+												<i class="icon-coffee green"></i>
+												欢迎登录
+											</h4>
+
+											<div class="space-6"></div>
+
+											<form method="post">
+                                                <input type='hidden' name='csrfmiddlewaretoken' value='mymQDzHWl2REXIfPMg2mJaLqDfaS1sD5' />
+												<fieldset>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input  id="stunum"  name="username" class="form-control" placeholder="学号" />
+															<i class="icon-user"></i>
+														</span>
+													</label>
+
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" name="password" id="stupwd" class="form-control" placeholder="密码" />
+															<i class="icon-lock"></i>
+														</span>
+													</label>
+
+													<div class="space"></div>
+
+													<label class="block clearfix">
+
+														<label class="radio-inline">
+															<input type="radio" class="check" name="is_admin" id="optionsRadios3" value="stu" checked> 学生
+														</label>
+														<label class="radio-inline">
+															<input type="radio" class="check" name="is_admin" id="optionsRadios4" value="admin"> 管理员
+														</label>
+
+													</label>
+
+													<div class="clearfix">
+														<button type="submit" id="sublogin" class="width-35 pull-right btn btn-sm btn-primary">
+
+															<i class="icon-key"></i>
+															登录
+														</button>
+													</div>
+													<div class="space-4"></div>
+												</fieldset>
+                                                {% csrf_token %}
+											</form>
+                                            {% if msg %}
+                                                <div id="myAlert2" style="display: block" class="alert alert-warning">
+                                                    <a href="#" class="close" id="close">&times;</a>
+                                                    <p>警告！</p>
+                                                   <span>您的账号或者密码错误！</span>
+                                                </div>
+                                            {% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+		<script src="{% static 'js/admin_js/jquery-2.0.3.min.js' %}"></script>
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>" + "<" + "/script>");
+		</script>
+
+
+		<script type="text/javascript">
+			if ("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" +
+				"/script>");
+		</script>
+
+		<!-- inline scripts related to this page -->
+
+		<script type="text/javascript">
+			function show_box(id) {
+				jQuery('.widget-box.visible').removeClass('visible');
+				jQuery('#' + id).addClass('visible');
+			}
+		</script>
+		<div style="display:none">
+			<script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script>
+		</div>
+	</body>
+</html>
+
+<script src="{% static 'js/admin_js/bootstrap.min.js' %}"></script>
+
+<script>
+	$(document).ready(function() {
+		$("#sublogin").click(function() {
+			console.log("开始")
+			if ($("form #stunum").val().length > 0) {
+				if ($("form #stupwd").val().length > 0) {
+					if ($("form #stunum").val().length >= 6 && $("form #stupwd").val().length >= 6) {
+//						提交
+						
+					} else {
+//						alert("请输入正确的用户名（密码）");
+						$("#myAlert2").css('display','block');
+						$("#myAlert2 span").html('请输入正确的用户名（密码）!');
+					}
+				} else {
+//					alert('请输入密码!');
+					$("#myAlert2").css('display','block');
+					$("#myAlert2 span").html('请输入密码!');
+				}
+			} else {
+//				alert('请输入用户名!');
+//				console.log($("#myAlert2").css());
+				$("#myAlert2").css('display','block');
+				$("#myAlert2 span").html('请输入用户名!');
+			}
+
+
+
+
+		});
+		$('#close').click(function () {
+			$("#myAlert2").css('display','none');
+		})
+	});
+</script>

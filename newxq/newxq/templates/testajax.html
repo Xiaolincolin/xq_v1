@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <a href="#" id="zy">测试</a>
+</div>
+</body>
+<script src="{% static 'js/admin_js/jquery-2.0.3.min.js' %}"></script>
+<script>
+    $(function(){
+       $("#zy").click(function(){
+                   $.ajax({
+                        url:"{% url 'index' %}",
+                        data:{"user":'20162056',"options":"123456","page":"zy",'csrfmiddlewaretoken':$('[name="csrfmiddlewaretoken"]').val()},
+                        cache:"false",
+                        async:"true",
+                        dataType:"json",
+                        type:"post",
+                        success:function(data){
+                            //data是json类型
+                             alert('成功')
+                        },
+                        error:function() {
+                            alert("服务器端异常!请稍后再试");
+                        },
+                          });
+              });
+    });
+
+
+</script>
+</html>

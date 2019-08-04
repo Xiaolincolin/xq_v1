@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {% load static %}
+		<meta charset="utf-8" />
+		<title>控制台</title>
+		<link href="{% static 'css/admin_css/bootstrap.min.css' %}" rel="stylesheet" />
+		<link rel="stylesheet" href="{% static 'css/admin_css/font/font-awesome.min.css' %}" />
+		<script src="{% static 'js/admin_js/jquery-2.0.3.min.js' %}"></script>
+
+
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+
+
+		<link rel="stylesheet" href="{% static 'css/admin_css/ace.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/admin_css/ace-rtl.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/admin_css/ace-skins.min.css' %}" />
+
+		<script src="{% static 'js/admin_js/echarts.common.min.js' %}"></script>
+
+		<script src="{% static 'js/admin_js/ace-extra.min.js' %}"></script>
+
+	</head>
+
+	<body>
+		<div class="navbar navbar-default" id="navbar">
+			<script type="text/javascript">
+				try {
+					ace.settings.check('navbar', 'fixed')
+				} catch (e) {}
+			</script>
+
+			<div class="navbar-container" id="navbar-container">
+				<div class="navbar-header pull-left">
+					<a href="{% url 'admindex' %}" class="navbar-brand">
+						<small>
+							<i class="icon-leaf"></i>
+							学情管理平台
+						</small>
+					</a><!-- /.brand -->
+				</div><!-- /.navbar-header -->
+
+				<div class="navbar-header pull-right" role="navigation">
+					<ul class="nav ace-nav">
+						
+						<li class="purple">
+							<a class="dropdown-toggle" href="../inbox.html">
+								<i class="icon-bell-alt icon-animated-bell"></i>
+								<span class="badge badge-important">8</span>
+							</a>
+
+						</li>
+
+
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<img class="nav-user-photo" src="{% static 'avatars/user.jpg' %}" alt="Jason's Photo" />
+								<span class="user-info">
+									<small>徐小林</small>
+									计算机学院
+								</span>
+
+								<i class="icon-caret-down"></i>
+							</a>
+
+							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+
+								<li>
+									<a href="../profile.html">
+										<i class="icon-user"></i>
+										个人资料
+									</a>
+								</li>
+
+								<li class="divider"></li>
+
+								<li>
+									<a href="../others/login.html">
+										<i class="icon-off"></i>
+										退出
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul><!-- /.ace-nav -->
+				</div><!-- /.navbar-header -->
+			</div><!-- /.container -->
+		</div>
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try {
+					ace.settings.check('main-container', 'fixed')
+				} catch (e) {}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				<div class="sidebar" id="sidebar">
+					<script type="text/javascript">
+						try {
+							ace.settings.check('sidebar', 'fixed')
+						} catch (e) {}
+					</script>
+
+					<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+						<!-- <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+							<button class="btn btn-success">
+								<i class="icon-signal"></i>
+							</button>
+
+							<button class="btn btn-info">
+								<i class="icon-pencil"></i>
+							</button>
+
+							<button class="btn btn-warning">
+								<i class="icon-group"></i>
+							</button>
+
+							<button class="btn btn-danger">
+								<i class="icon-cogs"></i>
+							</button>
+						</div> -->
+
+						<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+							<span class="btn btn-success"></span>
+
+							<span class="btn btn-info"></span>
+
+							<span class="btn btn-warning"></span>
+
+							<span class="btn btn-danger"></span>
+						</div>
+					</div><!-- #sidebar-shortcuts -->
+
+					<ul class="nav nav-list">
+						<li class="active">
+							<a href="{% url 'admindex' %}">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text"> 学情管理控制台 </span>
+							</a>
+						</li>
+
+
+						<li class="active">
+							<a href="{% url 'admindex' %}">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text"> 主页 </span>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="icon-list"></i>
+								<span class="menu-text"> 毕业审核 </span>
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'st_like' %}" class="dropdown-toggle">
+								<i class="icon-list"></i>
+								<span class="menu-text"> 学情分析 </span>
+
+							</a>
+
+						</li>
+						<li>
+							<a href="{% url 'warm' %}" class="dropdown-toggle">
+								<i class="icon-list"></i>
+								<span class="menu-text"> 学情预警 </span>
+
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'admcred' %}">
+								<i class="icon-list"></i>
+								<span class="menu-text"> 学分管理 </span>
+							</a>
+						</li>
+
+						<li>
+							<a href="{% url 'hplan' %}" class="dropdown-toggle">
+								<i class="icon-list"></i>
+								<span class="menu-text"> 助学进度 </span>
+
+							</a>
+
+						</li>
+						<li>
+							<a href="{% url 'adduser' %}" class="dropdown-toggle">
+								<i class="icon-list"></i>
+								<span class="menu-text"> 添加用户 </span>
+							</a>
+
+						</li>
+						<li>
+							<a href="{% url 'assit' %}" class="dropdown-toggle">
+								<i class="icon-list"></i>
+								<span class="menu-text"> 帮扶计划 </span>
+
+							</a>
+
+						</li>
+
+						<li>
+							<a href="{% url 'tj' %}" class="dropdown-toggle">
+								<i class="icon-list"></i>
+								<span class="menu-text"> 统计分析 </span>
+
+							</a>
+
+						</li>
+
+						<li>
+							<a href="{% url 'associate' %}" class="dropdown-toggle">
+								<i class="icon-list"></i>
+								<span class="menu-text"> 关联分析 </span>
+
+							</a>
+
+						</li>
+
+
+
+						
+					</ul>
+
+					<div class="sidebar-collapse" id="sidebar-collapse">
+						<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+					</div>
+
+					<script type="text/javascript">
+						try {
+							ace.settings.check('sidebar', 'collapsed')
+						} catch (e) {}
+					</script>
+				</div>
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try {
+								ace.settings.check('breadcrumbs', 'fixed')
+							} catch (e) {}
+						</script>
+
+						<ul class="breadcrumb">
+							<li>
+								<i class="icon-home home-icon"></i>
+								<a href="{% url 'admindex' %}">首页</a>
+							</li>
+							<li class="active">主页</li>
+						</ul><!-- .breadcrumb -->
+
+						<div class="nav-search" id="nav-search">
+							<form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="icon-search nav-search-icon"></i>
+								</span>
+							</form>
+						</div><!-- #nav-search -->
+					</div>
+
+					<div class="page-content">
+						
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<div class="row">
+									<div class="col-sm-6" style="position: relative">
+										<div class="widget-box">
+											<div class="widget-header widget-header-flat widget-header-small">
+												<h5>
+													<i class="icon-signal"></i>
+													毕业审核
+												</h5>
+
+												<div class="widget-toolbar no-border">
+													<button class="btn btn-minier btn-primary dropdown-toggle" onclick="alert('查看详情')">
+														查看详情
+													</button>
+													<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+													统计方式
+														<i class="icon-angle-down icon-on-right bigger-110"></i>
+													</button>
+
+													<ul class="dropdown-menu pull-right dropdown-125 dropdown-lighter dropdown-caret">
+														<li class="active">
+															<a href="#" class="blue">
+																<i class="icon-caret-right bigger-110">&nbsp;</i>
+																计算机科学与技术
+															</a>
+														</li>
+														<li>
+															<a href="#">
+																<i class="icon-caret-right bigger-110 invisible">&nbsp;</i>
+																软件工程
+															</a>
+														</li>
+														<li>
+															<a href="#">
+																<i class="icon-caret-right bigger-110 invisible">&nbsp;</i>
+																网络工程
+															</a>
+														</li>
+
+														<li>
+															<a href="#">
+																<i class="icon-caret-right bigger-110 invisible">&nbsp;</i>
+																信息管理与信息系统
+															</a>
+														</li>
+                                                        <li>
+															<a href="#">
+																<i class="icon-caret-right bigger-110 invisible">&nbsp;</i>
+																智能科学与人工智能
+															</a>
+														</li>
+
+
+													</ul>
+												</div>
+
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+													<div id="piechart-placeholder"  style="height:350px;"></div>
+												</div>
+
+											</div>
+
+											<div style="width: 120px;height: 80%;background: rgba(240,240,240,.5);border: 1px solid #ccc;box-sizing:border-box;border-radius: 3px;position: absolute;top: 50px;right: 20px;">
+												<div class="widget-main">
+													<p style="width: 100%;height: 25px;line-height: 25px;background: rgba(111,111,111,.5);margin: 0;text-align: center;">专业名</p>
+													<p style="width: 100%;height: 25px;line-height: 25px;background: rgba(255,255,255,.5);text-align: center;">软件工程</p>
+													<p style="width: 100%;height: 25px;line-height: 25px;background: rgba(111,111,111,.5);margin: 0;text-align: center;">专业人数</p>
+													<p style="width: 100%;height: 25px;line-height: 25px;background: rgba(255,255,255,.5);text-align: center;">130</p>
+													<p style="width: 100%;height: 25px;line-height: 25px;background: rgba(111,111,111,.5);margin: 0;text-align: center;">毕业最低学分</p>
+													<p style="width: 100%;height: 25px;line-height: 25px;background: rgba(255,255,255,.5);text-align: center;">260</p>
+													<p style="width: 100%;height: 25px;line-height: 25px;background: rgba(111,111,111,.5);margin: 0;text-align: center;">毕业人数</p>
+													<p style="width: 100%;height: 25px;line-height: 25px;background: rgba(255,255,255,.5);text-align: center;">250</p>
+													<p style="width: 100%;height: 25px;line-height: 25px;background: rgba(111,111,111,.5);margin: 0;text-align: center;">统计信息</p>
+													<p style="width: 100%;cursor: pointer;margin: 0;background: rgba(255,255,255,.5);text-align: center;color:blue;font-weight: bold;">
+														<a href="../message.html">正常毕业</a></p>
+													<p style="width: 100%;cursor: pointer;margin: 0;background: rgba(255,255,255,.5);text-align: center;color:blue;font-weight: bold;">
+														<a href="../message.html">异常毕业</a></p>
+												</div>
+
+											</div>
+
+										</div>
+
+									</div>
+
+
+									<div class="col-sm-6">
+										<div class="widget-box">
+											<div class="widget-header widget-header-flat widget-header-small">
+												<h5>
+													<i class="icon-signal"></i>
+													学情分析
+												</h5>
+
+												<div class="widget-toolbar no-border">
+													<a href="{% url 'st_like' %}">
+													<button class="btn btn-minier btn-primary dropdown-toggle">
+														查看详情
+													</button>
+													</a>
+												</div>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+													<div id="piechart-placeholder-two" style="height:350px;"></div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="widget-box">
+											<div class="widget-header widget-header-flat widget-header-small">
+												<h5>
+													<i class="icon-signal"></i>
+													学情预警
+												</h5>
+								
+												<div class="widget-toolbar no-border">
+													<a href="{% url 'warm' %}">
+														<button class="btn btn-minier btn-primary dropdown-toggle">
+															查看详情
+														</button>
+													</a>
+													<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+														统计方式
+
+														<i class="icon-angle-down icon-on-right bigger-110"></i>
+													</button>
+								
+													<ul class="dropdown-menu pull-right dropdown-125 dropdown-lighter dropdown-caret">
+														<form method="post">
+                                                            <li class="active">
+															<a href="#" id="college_3" class="blue">
+																<i class="icon-caret-right bigger-110" >&nbsp;</i>
+																学院
+															</a>
+														</li>
+                                                        <li>
+															<a href="#" id="major_3">
+																<i class="icon-caret-right bigger-110 invisible" >&nbsp;</i>
+																专业
+															</a>
+														</li>
+                                                            {% csrf_token %}
+                                                    </form>
+													</ul>
+												</div>
+											</div>
+								
+											<div class="widget-body">
+												<div class="widget-main">
+													<div id="piechart-placeholder-tree"  style="height:350px;"></div>
+								
+								
+												</div>
+								
+											</div>
+								
+										</div>
+								
+									</div>
+								
+								
+									<div class="col-sm-6">
+										<div class="widget-box">
+											<div class="widget-header widget-header-flat widget-header-small">
+												<h5>
+													<i class="icon-signal"></i>
+													计算机学院
+												</h5>
+
+												<div class="widget-toolbar no-border">
+													<button class="btn btn-minier btn-primary dropdown-toggle" onclick="alert('查看详情')">
+														查看详情
+													</button>
+													<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+														统计方式
+
+														<i class="icon-angle-down icon-on-right bigger-110"></i>
+													</button>
+
+													<ul class="dropdown-menu pull-right dropdown-125 dropdown-lighter dropdown-caret">
+														<li class="active">
+															<a href="#" class="blue">
+																<i class="icon-caret-right bigger-110">&nbsp;</i>
+																按专业
+															</a>
+														</li>
+														<li>
+															<a href="#">
+																<i class="icon-caret-right bigger-110 invisible">&nbsp;</i>
+																按年级
+															</a>
+														</li>
+														<li>
+															<a href="#">
+																<i class="icon-caret-right bigger-110 invisible">&nbsp;</i>
+																按班级
+															</a>
+														</li>
+
+														<li>
+															<a href="#">
+																<i class="icon-caret-right bigger-110 invisible">&nbsp;</i>
+																按性别
+															</a>
+														</li>
+
+
+													</ul>
+												</div>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+													<div id="piechart-placeholder-foure" style="height:350px;"></div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								
+								</div>
+
+								
+
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+				<div class="ace-settings-container" id="ace-settings-container">
+					<div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+						<i class="icon-cog bigger-150"></i>
+					</div>
+
+					<div class="ace-settings-box" id="ace-settings-box">
+						<div>
+							<div class="pull-left">
+								<select id="skin-colorpicker" class="hide">
+									<option data-skin="default" value="#438EB9">#438EB9</option>
+									<option data-skin="skin-1" value="#222A2D">#222A2D</option>
+									<option data-skin="skin-2" value="#C6487E">#C6487E</option>
+									<option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+								</select>
+							</div>
+							<span>&nbsp; 选择皮肤</span>
+						</div>
+
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
+							<label class="lbl" for="ace-settings-navbar"> 固定导航条</label>
+						</div>
+
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
+							<label class="lbl" for="ace-settings-sidebar"> 固定滑动条</label>
+						</div>
+
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
+							<label class="lbl" for="ace-settings-breadcrumbs">固定面包屑</label>
+						</div>
+
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
+							<label class="lbl" for="ace-settings-rtl">切换到左边</label>
+						</div>
+
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
+							<label class="lbl" for="ace-settings-add-container">
+								切换窄屏
+								<b></b>
+							</label>
+						</div>
+					</div>
+				</div><!-- /#ace-settings-container -->
+			
+			</div><!-- /.main-container-inner -->
+
+		</div><!-- /.main-container -->
+
+
+		<script src="{% static 'js/admin_js/jquery-2.0.3.min.js' %}"></script>
+
+		<!--[if IE]>
+<script src="{% static 'js/admin_js/jquery-1.10.2.min.js' %}"></script>
+<![endif]-->
+
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='{% static 'js/admin_js/jquery-2.0.3.min.js' %}'>" + "<" + "script>");
+		</script>
+
+
+		<script type="text/javascript">
+			if ("ontouchend" in document) document.write("<script src='{% static 'js/admin_js/jquery.mobile.custom.min.js' %}'>" + "<" +
+				"script>");
+		</script>
+		<script src="{% static 'js/admin_js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/admin_js/typeahead-bs2.min.js' %}"></script>
+        <script src="{% static 'js/admin_js/excanvas.min.js' %}"></script>
+		<script src="{% static 'js/admin_js/jquery-ui-1.10.3.custom.min.js' %}"></script>
+		<script src="{% static 'js/admin_js/jquery.ui.touch-punch.min.js' %}"></script>
+		<script src="{% static 'js/admin_js/jquery.slimscroll.min.js' %}"></script>
+		<script src="{% static 'js/admin_js/jquery.easy-pie-chart.min.js' %}"></script>
+		<script src="{% static 'js/admin_js/jquery.sparkline.min.js' %}"></script>
+		<script src="{% static 'js/admin_js/flot/jquery.flot.min.js' %}"></script>
+		<script src="{% static 'js/admin_js/flot/jquery.flot.pie.min.js' %}"></script>
+		<script src="{% static 'js/admin_js/flot/jquery.flot.resize.min.js' %}"></script>
+		<script src="{% static 'js/admin_js/ace-elements.min.js' %}"></script>
+		<script src="{% static 'js/admin_js/ace.min.js' %}"></script>
+		<script>
+            {# 预警消息逻辑 #}
+            data_value=[];
+            warm_name = [];
+            colleage = {{ colleage|safe }};
+            var dict_warm = {{ dict_warm|safe }};
+            for(let key in dict_warm){
+                warm_name.push(key)
+                data_value.push({'value':dict_warm[key],'name':key})
+            }
+
+            $(function(){
+                 {#学情预警统计  #}
+                {# 专业 #}
+              $("#major_3").click(function(){
+                   $.ajax({
+                        url:"{% url 'index' %}",
+                        data:{"choice":'major',"options":"option3",'csrfmiddlewaretoken':$('[name="csrfmiddlewaretoken"]').val()},
+                        cache:"false",
+                        async:"true",
+                        dataType:"json",
+                        type:"post",
+                        success:function(data){
+                            //data是json类型
+                             data_value.length=0;
+                             warm_name.length=0;
+                            for(let key in data){
+                                warm_name.push(key)
+                                data_value.push({'value':data[key],'name':key})
+                            }
+                            myChart3.setOption(option3);
+                        },
+                        error:function() {
+                            alert("服务器端异常!请稍后再试");
+                        },
+                          });
+              });
+
+                {# 预警统计 学院 #}
+              $("#college_3").click(function(){
+                   $.ajax({
+                        url:"{% url 'index' %}",
+                        data:{"choice":'colleage',"options":"option3",'csrfmiddlewaretoken':$('[name="csrfmiddlewaretoken"]').val()},
+                        cache:"false",
+                        async:"true",
+                        dataType:"json",
+                        type:"post",
+                        success:function(data){
+                            //data是json类型
+                             data_value.length=0;
+                             warm_name.length=0;
+                            for(let key in data){
+                                warm_name.push(key)
+                                data_value.push({'value':data[key],'name':key})
+                            }
+                            myChart3.setOption(option3);
+                        },
+                        error:function() {
+                            alert("服务器端异常!请稍后再试");
+                        },
+                          });
+              });
+
+
+
+
+            });
+
+
+            {# 学情分析逻辑 #}
+             major_name=[];
+             like_count=[];
+            var dict_study_like = {{ dict_study_love|safe }}
+             for(let key in dict_study_like){
+                 major_name.push(key);
+                 like_count.push(dict_study_like[key]);
+             }
+
+            $(function () {
+            });
+
+
+			// 基于准备好的dom，初始化echarts实例
+			var myChart = echarts.init(document.getElementById('piechart-placeholder'));
+			// 基于准备好的dom，初始化echarts实例
+			var myChart2 = echarts.init(document.getElementById('piechart-placeholder-two'));
+			var myChart3 = echarts.init(document.getElementById('piechart-placeholder-tree'));
+			var myChart4 = echarts.init(document.getElementById('piechart-placeholder-foure'));
+
+			// 指定图表的配置项和数据
+
+            {# 毕业审核图 #}
+			var option1 = {
+//				图例标题    通过返回数据更改    不写死
+				title: {
+					text: '毕业审核统计图',
+					// subtext: '纯属虚构',
+					x: 'center'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+				},
+
+				legend: {
+					orient: 'vertical',
+					x: 'left',
+//					图例选项  通过返回数据组装更改    不写死
+					data: ['正常毕业人数', '不能正常毕业人数']
+				},
+//
+				calculable: true,
+//				通过返回数据组装更改    不写死
+				series: [{
+					name: '专业学分',
+					type: 'pie',
+					radius: '55%',
+					center: ['50%', '60%'],
+					data: [{
+							value: 36,
+							name: '正常毕业人数'
+						},
+						{
+							value: 42,
+							name: '不能正常毕业人数'
+						},
+
+					]
+				}]
+			};
+
+            {# 专业方向图 #}
+			var option2 = {
+				title: {
+					text: '兴趣统计',
+					// subtext: '纯属虚构',
+					x: 'center'
+				},
+				color: ['#3398DB'],
+				tooltip : {
+					trigger: 'axis',
+					axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+						type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+					}
+				},
+				grid: {
+					left: '3%',
+					right: '4%',
+					bottom: '3%',
+					containLabel: true
+				},
+				xAxis : [
+					{   name:'方向',
+						type : 'category',
+						data : major_name,
+						axisTick: {
+							alignWithLabel: true
+						}
+					}
+				],
+				yAxis : [
+					{
+						name:'人数',
+						type : 'value'
+					}
+				],
+				series : [
+					{
+						name:'人数',
+						type:'bar',
+						barWidth: '60%',
+						data:like_count,
+					}
+				]
+			};
+
+            {# 预警图 #}
+			var option3 = {
+				title: {
+					text: '预警统计图',
+					// subtext: '纯属虚构',
+					x: 'center'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+				},
+				legend: {
+					orient: 'vertical',
+					x: 'left',
+					data: warm_name
+				},
+
+				calculable: true,
+				series: [{
+					name: '预警统计',
+					type: 'pie',
+					radius: '55%',
+					center: ['50%', '60%'],
+					data: data_value
+				}]
+			};
+
+            {# 暂未定 #}
+			var option4 = {
+				title: {
+					text: '助学统计',
+					// subtext: '纯属虚构',
+					x: 'center'
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+				},
+				legend: {
+					orient: 'vertical',
+					x: 'left',
+					data: ['大一', '大二', '大三', '大四',]
+				},
+				
+				calculable: true,
+				series: [{
+					name: '助学统计',
+					type: 'pie',
+					radius: '55%',
+					center: ['50%', '60%'],
+					data: [{
+							value: 100,
+							name: '大一'
+						},
+						{
+							value: 90,
+							name: '大二'
+						},
+						{
+							value: 130,
+							name: '大三'
+						},
+						{
+							value: 35,
+							name: '大四'
+						},
+						
+					]
+				}]
+			};
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option1);
+			// 使用刚指定的配置项和数据显示图表。
+			myChart2.setOption(option2);
+			myChart3.setOption(option3);
+			myChart4.setOption(option4);
+			myChart2.on('click', function (param) {
+				console.log('chulai:'+param.name);//这里根据param填写你的跳转逻辑
+                let name_id= param.name;
+                let url_host = window.location.host;
+                let url_protocol = window.location.protocol;
+                conn_url = url_protocol+"//"+url_host+"/"+"xqdetail/"+name_id;
+                window.location.href=conn_url;
+
+			});
+
+			myChart3.on('click', function (param) {
+                console.log(param.data.name);
+                {# 关于预警图表的点击 #}
+                if(param.data.name == "退学预警"){
+                    window.location.href = '{% url 'warmdet' 1 "退学预警" %}'
+                }else if(param.data.name == "降级预警" ){
+                    window.location.href = '{% url 'warmdet' 1 "降级预警" %}'
+                }else if(param.data.name == "警示预警"){
+                    window.location.href = '{% url 'warmdet' 1 "警示预警" %}'
+                }else if(param.data.name == "跟班修读"){
+                    window.location.href = '{% url 'warmdet' 1 "跟班修读" %}'
+                }
+                else if(param.data.name == "计算机科学与技术"){
+                    window.location.href = '{% url 'warmdet' 0 "计算机科学与技术" %}'
+                }else if(param.data.name == "网络工程"){
+                    window.location.href = '{% url 'warmdet' 0 "网络工程" %}'
+                }else if(param.data.name == "软件工程"){
+                    window.location.href = '{% url 'warmdet' 0 "软件工程" %}'
+                }else if(param.data.name == "信息管理与信息系统"){
+                    window.location.href = '{% url 'warmdet' 0 "信息管理与信息系统" %}'
+                }else if(param.data.name == "智能科学与人工智能"){
+                    window.location.href = '{% url 'warmdet' 0 "智能科学与人工智能" %}'
+                }
+
+			});
+			
+		</script>
+
+		<div style="display:none">
+			<script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script>
+		</div>
+	</body>
+</html>

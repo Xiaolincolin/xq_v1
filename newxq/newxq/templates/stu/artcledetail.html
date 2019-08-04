@@ -1,0 +1,142 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+{% load static %}
+<head>
+
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用DTcms做一个独立博客网站（响应式模板）-木庄网络博客</title>
+    <meta name="keywords" content="DTcms博客,木庄网络博客,独立博客,修复优化" />
+    <meta name="description" content="用DTcms做一个独立博客网站（响应式模板），采用DTcms V4.0正式版（MSSQL）。开发环境：SQL2008R2+VS2010。DTcms V4.0正式版功能修复和优化：1、favicon.ico图标后台上传。（解决要换图标时要连FTP或者开服务器的麻烦）" />
+    <meta http-equiv="windows-Target " content="_top " />
+<link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/nprogress.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/mains/main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/me.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/font-awesome.min.css' %}">
+<link rel="apple-touch-icon-precomposed" href="http://www.muzhuangnet.com/templates/blog/images/icon.png">
+<script src="{% static 'js/stu_js/jquery-2.1.4.min.js' %}"></script>
+<script src="{% static 'js/stu_js/nprogress.js' %}"></script>
+<script src="{% static 'js/stu_js/jquery.lazyload.min.js' %}"></script>
+<!--[if gte IE 9]>
+  <script src="{% static 'js/stu_js/jquery-1.11.1.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/stu_js/html5shiv.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/stu_js/respond.min.js' %}" type="text/javascript"></script>
+  <script src="{% static 'js/stu_js/selectivizr-min.js' %}" type="text/javascript"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+  <script>window.location.href='upgrade-browser.html';</script>
+<![endif]-->
+<link rel="shortcut icon" href="http://www.muzhuangnet.com/favicon.ico">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?03c61d76c52987c77447b08d61c765d3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    <link rel="stylesheet" type="text.css' %}" href="{% static 'css/stu_css/shang.css' %}">
+    <script src="{% static 'js/stu_js/comm.js' %}"></script>
+    <script type="text/javascript" charset="utf-8" src="{% static 'js/stu_js/jquery.cookie.js' %}"></script>
+</head>
+<body class="user-select single">
+<!--header start here-->
+<div class="headerer" style="position: fixed;top: 0;width: 100%;">
+    <div class="container" style="width: 100%;padding: 0 30px;box-sizing: border-box;">
+        <div class="header-main">
+            <div class="logo">
+						<a href="{% url 'main' %}" style="font-size: 25px;text-decoration: none"> 学情分析与助学平台 </a>
+					</div>
+					<div class="head-right">
+						<div class="top-nav">
+							<span class="menu"> <img src="{% static 'images/icon.png' %}" alt="" /></span>
+							<ul class="res">
+								<li><a class="active" href="{% url 'main' %}">个人主页</a></li>
+								<li><a href="{% url 'stcred' %}">我的学分</a></li>
+								 <li><a href="{% url 'course' %}">我的课程</a></li>
+								<li><a href="{% url 'inst' %}">专业兴趣</a></li>
+                                <li><a href="https://helpstudy.cn/thirdAuth/1/{{ info.st_id }}/{{ range_code }}">学习状况</a></li>
+                                <li><a href="https://helpstudy.cn/thirdAuth/2/{{ info.st_id }}/{{ range_code }}">学习计划</a></li>
+                                <li><a href="https://helpstudy.cn/thirdAuth/3/{{ info.st_id }}/{{ range_code }}">在线学习</a></li>
+                            </ul>
+
+
+
+                </div>
+
+                <div style="position: relative;width:37px;height:37px;display: inline-block;float: right;padding:5px;margin:30px 70px 0 0;background: #fff;border-radius: 30px;overflow: hidden;">
+                    <span class="glyphicon glyphicon-bell" style="font-size: 25px;margin:2px 0 0 2px;"></span>
+                    <span style="position: absolute;right: 5px;top: 5px;font-size: 12px;color: #fff;display: inline-block;width: 15px;height: 15px;background: red;border-radius: 15px;text-align: center;">3</span>
+                </div>
+
+
+                <div class="search-box">
+
+
+                    <div id="sb-search" class="sb-search">
+                        <p><a style="text-decoration: none; display: inline-block;width: 100%;height: 100%;line-height: 40px;padding: 0;" href="../others/login.html">退出</a></p>
+                        <!--<form>-->
+                        <!--<input class="sb-search-input" placeholder="搜索" type="search" name="search" id="search">-->
+                        <!--<input class="sb-search-submit" type="submit" value="">-->
+                        <!--<span class="sb-icon-search"> </span>-->
+                        <!--</form>-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--header end here-->
+
+<section class="container" style="margin-top: 100px;padding: 30px;box-sizing: border-box;">
+    <div class="content-wrap">
+    <div class="content">
+      <header class="article-header" style="margin-bottom: 20px;">
+        <h1 class="article-title" style="text-align: center;">{{ all_artcle_detail.title }}</h1>
+        <div class="article-meta" style="text-align: center;"> <span class="item article-meta-time">
+          <time class="time" data-toggle="tooltip" data-placement="bottom" title="发表时间："><i class="glyphicon glyphicon-time"></i> {{ all_artcle_detail.add_time }}</time>
+          </span> <span class="item article-meta-source" data-toggle="tooltip" data-placement="bottom" title="来源：木庄网络博客"><i class="glyphicon glyphicon-globe"></i> 学情分析</span> <span class="item article-meta-category" data-toggle="tooltip" data-placement="bottom" title="MZBlog开源博客"><i class="glyphicon glyphicon-list"></i> <a href="javascript:;" title="MZBlog开源博客">MZBlog开源博客</a></span> <span class="item article-meta-views" data-toggle="tooltip" data-placement="bottom" title="浏览量：8577"><i class="glyphicon glyphicon-eye-open"></i> </span> <span class="item article-meta-comment" data-toggle="tooltip" data-placement="bottom" title="评论量"><i class="glyphicon glyphicon-comment"></i></span> </div>
+      </header>
+      <article class="article-content">
+        <p>{{ all_artcle_detail.content }}</p>
+    </article>
+    </div>
+</div>
+</section>
+
+<!--尾部-->
+<footer id="xq_footer" style="width: 100%;background: #121212;position: fixed;bottom: 0;">
+  <div class="container">
+      <div class="row" style="padding-top: 10px;border: 0;">
+          <p style="text-align: center;color: #efefef;">北方民族大学大数据团队 &copy;版权所有</p>
+      </div>
+  </div>
+</footer>
+  <!--/尾部-->
+
+<script src="{% static 'js/stu_js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/stu_js/jquery.ias.js' %}"></script>
+
+
+</body>
+</html>

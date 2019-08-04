@@ -1,0 +1,56 @@
+
+.zwlb .start{
+    min-height: 70px;
+    margin: 10px 3px;
+    padding: 10px 0;
+    box-shadow: 0 0 2px #999;
+}
+.zwlb-nm .zwlb-name h5,.zwlb-nm span,.zwlb-jy{
+    white-space: nowrap;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.zwlb-nm .zwlb-name h5 a{
+    font-weight: bold;
+    height: 25px;
+    line-height: 25px;
+    color: #194fff;
+}
+.zwlb-nm .zwlb-name h5 a:hover{
+    text-decoration: none;
+    color: orangered;
+}
+.zwlb-jy span{
+    height: 16px;
+    font-size: 12px;
+    line-height: 15px;
+    display: inline-block;
+    margin-left: 7px;
+}
+
+
+
+
+.gzxiangq{
+    /*background: #efefef;*/
+    box-shadow: 0 0 3px #ccc;
+    border-radius: 3px;
+    margin: 20px auto;
+    padding: 5px 0 20px 0;
+    overflow: hidden;
+}
+.gzxiangq h4{
+    margin: 10px;
+    font-weight: bold;
+    padding-left: 5%;
+}
+.gzxiangqxx{
+    padding-left: 10%;
+}
+.gzxiangqxx p{
+    margin-bottom: 5px;
+}
+.skuer{
+    font-weight: bold;
+}

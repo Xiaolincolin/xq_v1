@@ -1,0 +1,1 @@
+default_app_config = "xq_type.apps.XqTypeConfig"

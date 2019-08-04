@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>课程中心</title>
+
+<link href="{% static 'css/stu_css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/stu_css/datepicker3.css' %}" rel="stylesheet">
+<link href="{% static 'css/stu_css/bootstrap-table.css' %}" rel="stylesheet">
+<link href="{% static 'css/stu_css/main.css' %}" rel="stylesheet">
+<link href="{% static 'css/stu_css/me.css' %}" rel="stylesheet">
+
+<!--[if lt IE 9]>
+<script src="{% static 'js/stu_js/html5shiv.js' %}"></script>
+<script src="{% static 'js/stu_js/respond.min.js' %}"></script>
+<![endif]-->
+
+</head>
+
+<body>
+<!--header start here-->
+<div class="headerer" style="position: fixed;top: 0;width: 100%;">
+	<div class="container">
+		<div class="header-main">
+			<div class="logo">
+				<a href="index.html"> <img src="{% static 'images/logo.png' %}" alt="" title=""> </a>
+			</div>
+			<div class="head-right">
+				<div class="top-nav">
+					<span class="menu"> <img src="{% static 'images/icon.png' %}" alt="" /></span>
+					<ul class="res">
+						<li><a class="active" href="/main/">主页</a></li>
+						<li><a href="/study/">资讯墙</a></li>
+
+					</ul>
+					<!-- script-for-menu -->
+					<script>
+						$( "span.menu" ).click(function() {
+					$( "ul.res" ).slideToggle( 300, function() {
+						// Animation complete.
+					});
+				});
+			</script>
+					<!-- /script-for-menu -->
+				</div>
+	
+				<div style="position: relative;width:37px;height:37px;display: inline-block;float: right;padding:5px;margin:30px 70px 0 0;background: #fff;border-radius: 30px;overflow: hidden;">
+					<span class="glyphicon glyphicon-bell" style="font-size: 25px;margin:2px 0 0 2px;"></span>
+					<span style="position: absolute;right: 5px;top: 5px;font-size: 12px;color: #fff;display: inline-block;width: 15px;height: 15px;background: red;border-radius: 15px;text-align: center;">3</span>
+				</div>
+	
+				<div class="search-box">
+					<div id="sb-search" class="sb-search">
+						<form>
+							<input class="sb-search-input" placeholder="搜索" type="search" name="search" id="search">
+							<input class="sb-search-submit" type="submit" value="">
+							<span class="sb-icon-search"> </span>
+						</form>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+				<!-- search-scripts -->
+				<script src="{% static 'js/stu_js/classie.js' %}"></script>
+				<script src="{% static 'js/stu_js/uisearch.js' %}"></script>
+				<script>
+					new UISearch( document.getElementById( 'sb-search' ) );
+		</script>
+				<!-- //search-scripts -->
+			</div>
+	
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+</div>
+<!--header end here-->
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+	<!-- <div class="form-group" style="margin-top: 10px;padding: 10px;">
+		<a href="me.html" style="display: block;width: 100%;height: 100%; color: orangered; font-size: 25px;font-weight: bold;text-align: center;">个人中心>></a>
+	</div> -->
+	<ul class="nav menu logres">
+		<li style="width:100%;height:150px;">
+			<p style="width:120px;height:100%"><img style="width:100%;height:100%;" src="{% static 'images/f5.jpg' %}" alt=""></p>
+		</li>
+		<li><span>姓名</span><span>{{ info.name }}</span></li>
+		<li><span>学号</span><span>{{ info.st_id }}</span></li>
+		<li><span>专业</span><span>{{ info.major }}</span></li>
+		<li><span>我的方向</span><span>{{ info.favor }}</span></li>
+
+	</ul>
+	<div class="col-md-12">
+		<div class="panel">
+				<div class="row no-padding">
+						<div class="text-muted" style="font-size:18px;line-height:2.5">预警等级:</div>
+						<!-- 蓝 -->
+						<button  style="width:70%;float:right;display:none;" type="button" id="showblue" class="btn btn-primary">{{ student_warm_leve }} </button>
+						<!-- 橙 -->
+						<button style="width:70%;float:right;display:none;" type="button" id="showorg" class="btn btn-warning">{{ student_warm_leve }}</button>
+						<!-- 红 -->
+						<button style="width:70%;float:right;display:none;" type="button" id="showred" class="btn btn-danger">{{ student_warm_leve }}</button>
+					</div>
+	
+		</div>
+	</div>
+</div>
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+				<li class="active">课程中心</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">课程中心</h1>
+			</div>
+		</div><!--/.row-->
+				
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">所有课程</div>
+					<div class="panel-body">
+						<table data-toggle="table" data-url="tables/data1.json"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+						    <thead>
+						    <tr>
+						        
+						        <th data-field="id" data-sortable="true"> 序号</th>
+						        <th data-field="title"  data-sortable="true">课程名</th>
+						        <th data-field="c_type" data-sortable="true">课程性质</th>
+								<th data-field='credit' data-sortable="true">学分 </th>
+                                <th data-field='semester' data-sortable="true">学期 </th>
+                                <th data-field='c_id' data-sortable="true">课程代码 </th>
+							</tr>
+						    </thead>
+							<tbody>
+                                {% for course in mycourse %}
+                                    <tr class="no-records-found">
+                                        <td colspan="1">{{ course.id }}</td>
+                                        <td colspan="2">{{ course.title }}</td>
+                                        <td colspan="3">{{ course.c_type }}</td>
+                                        <td colspan="4">{{ course.credit }}</td>
+                                        <td colspan="5">{{ course.semester }}</td>
+                                        <td colspan="6">{{ course.c_id }}</td>
+                                    </tr>
+                                {% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->	
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">挂科课程</div>
+					<div class="panel-body">
+						<table data-toggle="table" data-url="tables/data2.json" >
+						    <thead>
+
+
+						    <tr>
+						        <th data-field="id" data-align="right">课程号</th>
+						        <th data-field="name">课程名</th>
+                                <th data-field="year">学年</th>
+                                <th data-field="smester">学期</th>
+						        <th data-field="price">课程性质</th>
+								<th data-field='credit'>学分 </th>
+                                <th data-field="grade">成绩</th>
+						    </tr>
+
+						    </thead>
+							<tbody>
+                             {% for fail_cour in fail_course %}
+								<tr class="no-records-found">
+                                    <td colspan="5">{{ fail_cour.id }}</td>
+									<td colspan="5">{{ fail_cour.title }}</td>
+                                    <td colspan="5">{{ fail_cour.year }}</td>
+                                    <td colspan="5">{{ fail_cour.semester }}</td>
+									<td colspan="5">{{ fail_cour.c_type }}</td>
+									<td colspan="5">{{ fail_cour.credit }}</td>
+                                    <td colspan="5">{{ fail_cour.grade }}</td>
+
+								</tr>
+                            {% endfor %}
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">已修课程</div>
+					<div class="panel-body">
+						<table data-toggle="table" id="table-style" data-url="tables/data2.json" data-row-style="rowStyle">
+						    <thead>
+						    <tr>
+						        <th data-field="id" data-align="right">课程号</th>
+						        <th data-field="name">课程名</th>
+                                <th data-field="year">学年</th>
+                                <th data-field="smester">学期</th>
+						        <th data-field="price">课程性质</th>
+								<th data-field='credit'>学分 </th>
+                                <th data-field="grade">成绩</th>
+						    </tr>
+							</thead>
+							<tbody>
+                            {% for foo in complet_course %}
+                                <tr class="no-records-found">
+									<td colspan="5">{{ foo.id }}</td>
+									<td colspan="5">{{ foo.title }}</td>
+                                    <td colspan="5">{{ foo.year }}</td>
+                                    <td colspan="5">{{ foo.semester }}</td>
+									<td colspan="5">{{ foo.c_type }}</td>
+									<td colspan="5">{{ foo.credit }}</td>
+                                    <td colspan="5">{{ foo.grade }}</td>
+                                </tr>
+                            {% endfor %}
+
+
+							</tbody>
+						</table>
+						<script>
+						    $(function () {
+						        $('#hover, #striped, #condensed').click(function () {
+						            var classes = 'table';
+						
+						            if ($('#hover').prop('checked')) {
+						                classes += ' table-hover';
+						            }
+						            if ($('#condensed').prop('checked')) {
+						                classes += ' table-condensed';
+						            }
+						            $('#table-style').bootstrapTable('destroy')
+						                .bootstrapTable({
+						                    classes: classes,
+						                    striped: $('#striped').prop('checked')
+						                });
+						        });
+						    });
+						
+						    function rowStyle(row, index) {
+						        var classes = ['active', 'success', 'info', 'warning', 'danger'];
+						
+						        if (index % 2 === 0 && index / 2 < classes.length) {
+						            return {
+						                classes: classes[index / 2]
+						            };
+						        }
+						        return {};
+						    }
+						</script>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->	
+		
+		
+	</div><!--/.main-->
+
+	<script src="{% static 'js/stu_js/jquery-1.11.1.min.js' %}"></script>
+	<script src="{% static 'js/stu_js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/stu_js/chart.min.js' %}"></script>
+	<script src="{% static 'js/stu_js/chart-data.js' %}"></script>
+	<script src="{% static 'js/stu_js/easypiechart.js' %}"></script>
+	<script src="{% static 'js/stu_js/easypiechart-data.js' %}"></script>
+	<script src="{% static 'js/stu_js/bootstrap-datepicker.js' %}"></script>
+	<script src="{% static 'js/stu_js/bootstrap-table.js' %}"></script>
+	<script>
+		!function ($) {
+			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
+				$(this).find('em:first').toggleClass("glyphicon-minus");	  
+			}); 
+			$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script>
+
+     <script>
+        let warm_leve ={{ student_warm_leve|safe }};
+        if (warm_leve=="降级预警" || warm_leve=="退学预警"){
+
+            $("#showred").show();
+        }else if(warm_leve=="正常"){
+
+            $("#showblue").show();
+        }else{
+            $("#showorg").show();
+        }
+            </script>
+</body>
+
+</html>

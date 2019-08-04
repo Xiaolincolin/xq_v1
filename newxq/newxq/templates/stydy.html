@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>知识墙</title>
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/nprogress.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/stydy.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/stu_css/font-awesome.min.css' %}">
+        <link rel="apple-touch-icon-precomposed" href="/static/images/icon.png">
+        <link rel="shortcut icon" href="/static/images/favicon.ico">
+        <script src="{% static 'js/stu_js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/stu_js/nprogress.js' %}"></script>
+        <script src="{% static 'js/stu_js/jquery.lazyload.min.js' %}"></script>
+    </head>
+
+    <body class="user-select">
+        <div class="headerer">
+            <div class="container">
+                <div class="header-main">
+                    <div class="logo">
+                        <a href="/login/"> <img src="/static/images/logo.png" alt="" title=""> </a>
+                    </div>
+                    <div class="head-right">
+                        <div class="top-nav">
+                            <span class="menu"> <img src="/static/images/icon.png" alt=""/></span>
+                            <ul class="res">
+                                <li><a  href="{% url 'main' %}">主页</a></li>
+						        <li><a class="active" href="{% url 'study' %}">知识扩充</a></li>
+                                <div class="clearfix"> </div>
+                            </ul>
+                        <!-- script-for-menu -->
+                            <script>
+                                $( "span.menu" ).click(function() {
+                                    $( "ul.res" ).slideToggle( 300, function() {
+                                    // Animation complete.
+                                    });
+                                });
+                            </script>
+                        <!-- /script-for-menu -->
+                        </div>
+
+                        <div class="social">
+                            <ul >
+                                <li><a class="fa" href="javascript:;"> </a></li>
+                                <li><a class="tw" href="javascript:;"> </a></li>
+                                <li><a class="p" href="javascript:;"> </a></li>
+                            </ul>
+                        </div>
+
+                        <div class="search-box">
+                            <div id="sb-search" class="sb-search">
+                                <form>
+                                    <input class="sb-search-input" placeholder="搜索" type="search" name="search" id="search">
+                                    <input class="sb-search-submit" type="submit" value="">
+                                    <span class="sb-icon-search"> </span>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    <!-- search-scripts -->
+                        <script src="{% static 'js/stu_js/classie.js' %}"></script>
+                        <script src="{% static 'js/stu_js/uisearch.js' %}"></script>
+                        <script>
+                            new UISearch( document.getElementById( 'sb-search' ) );
+                        </script>
+                    <!-- //search-scripts -->
+                    </div>
+
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="container">
+              <div class="content-wrap">
+                <div class="content">
+                        <div class="title">
+                    <h3 style="line-height: 1.3">
+                        <ul id="myTab" class="nav nav-tabs" style="height: 100%;">
+                            <li class="active"><a href="#A" data-toggle="tab">资讯</a></li>
+                            <li><a href="#B" data-toggle="tab">招聘</a></li>
+                            <li><a href="#C" data-toggle="tab">开源项目</a></li>
+                        </ul>
+                    </h3>
+                  </div>
+                        <div id="myTabContent" class="tab-content">
+                            <!-- ********************资讯********************** -->
+                            <div class="tab-pane fade in active" id="A">
+                                {% for artcle in all_artcle %}
+                                   <article class="excerpt excerpt-6"><a class="focus" href="{% url 'artcledetail' artcle.id %}" title="图片" target="_blank" ><img class="thumb" data-original="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" src="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" alt="用DTcms做一个独立博客网站（响应式模板）"  style="display: inline;"></a>
+                                    <header><a class="cat" href="{% url 'artcledetail' artcle.id %}" title="类型" >{{ artcle.type_name }}<i></i></a>
+                                        <h2><a href="{% url 'artcledetail' artcle.id %}" title="用DTcms做一个独立博客网站（响应式模板）" target="_blank" >{{ artcle.title }}</a></h2>
+                                    </header>
+                                    <p class="meta">
+                                        <time class="time"><i class="glyphicon glyphicon-time"></i>{{ artcle.add_time }}</time>
+                                        <span class="views"><i class="glyphicon glyphicon-eye-open"></i> {{ artcle.click_times }}</span> <a class="comment" href="javascript:;" title="评论" target="_blank" ><i class="glyphicon glyphicon-comment"></i> 4</a></p>
+                                    <p class="note">{{ artcle.content }}</p>
+                                </article>
+                                {% endfor %}
+                            </div>
+                            <!-- ********************招聘********************** -->
+                            <div class="tab-pane fade" id="B">
+                                {% for job in all_job %}
+                                    <article class="excerpt excerpt-2"><a class="focus" href="{% url 'jobdetail' job.id %}" title="{{ job.title }}" target="_blank" ><img class="thumb" data-original="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" src="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" alt="用DTcms做一个独立博客网站（响应式模板）"  style="display: inline;"></a>
+                                    <header><a class="cat" href="{% url 'jobdetail' job.id %}" title="MZ-NetBlog主题" ><i></i></a>
+                                        <h2><a href="{% url 'jobdetail' job.id %}" title="用DTcms做一个独立博客网站（响应式模板）" target="_blank" >{{ job.title }} </a></h2>
+                                    </header>
+                                    <p class="meta">
+                                        <time class="time"><i class="glyphicon glyphicon-time"></i> {{ job.add_time }}</time>
+                                        <span class="views"><i class="glyphicon glyphicon-eye-open"></i> {{ job.click_times }}</span>
+                                        <a class="comment" href="javascript:;" title="薪水" target="_blank" ><i class="glyphicon glyphicon-eye-open"></i> {{ job.salary }} </a>
+                                    </p>
+                                    <p class="note">{{ job.content }}</p>
+                                </article>
+                                {% endfor %}
+
+
+                            </div>
+                            <!-- ****************开源项目********************** -->
+                            <div class="tab-pane fade" id="C">
+                                {% for  project in all_project %}
+                                    <article class="excerpt excerpt-1"><a class="focus" href="{% url 'projectdetail' project.id %}" title="用DTcms做一个独立博客网站（响应式模板）" target="_blank" ><img class="thumb" data-original="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" src="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" alt="用DTcms做一个独立博客网站（响应式模板）"  style="display: inline;"></a>
+                                    <header><a class="cat" href="{% url 'projectdetail' project.id %}" title="MZ-NetBlog主题" >{{ project.lable }}<i></i></a>
+                                        <h2><a href="{% url 'projectdetail' project.id %}" title="用DTcms做一个独立博客网站（响应式模板）" target="_blank" >{{ project.title }}</a></h2>
+                                    </header>
+                                    <p class="meta">
+                                        <time class="time"><i class="glyphicon glyphicon-time"></i> {{ project.add_time }}</time>
+                                        <span class="views"><i class="glyphicon glyphicon-eye-open"></i> {{ project.click_times }}</span> <a class="comment" href="javascript:;" title="评论" target="_blank" ><i class="glyphicon glyphicon-comment"></i> 4</a></p>
+                                    <p class="note">{{ project.content }}</p>
+                                </article>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                </div>
+              </div>
+              <aside class="sidebar">
+                <div class="fixed">
+
+                  <div class="widget widget_sentence">
+                    <h3>标签云</h3>
+                    <div class="widget-sentence-content">
+                        <ul class="plinks ptags">
+                            <li><a href="javascript:;" title="移动统计" draggable="false">移动统计 <span class="badge">1</span></a></li>
+                            <li><a href="javascript:;" title="404" draggable="false">404 <span class="badge">1</span></a></li>
+                            <li><a href="javascript:;" title="VS2010" draggable="false">VS2010 <span class="badge">1</span></a></li>
+                            <li><a href="javascript:;" title="杀毒软件" draggable="false">杀毒软件 <span class="badge">1</span></a></li>
+                            <li><a href="javascript:;" title="html标签" draggable="false">html标签 <span class="badge">1</span></a></li>
+                            <li><a href="javascript:;" title="循环" draggable="false">循环 <span class="badge">2</span></a></li>
+                            <li><a href="javascript:;" title="百度统计" draggable="false">百度统计 <span class="badge">2</span></a></li>
+                            <li><a href="javascript:;" title="sql" draggable="false">sql <span class="badge">6</span></a></li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="widget widget_hot">
+                      <h3>最新评论文章</h3>
+                      <ul>
+                          <li>
+                <a title="用DTcms做一个独立博客网站（响应式模板）" href="showlist.html" >
+                    <span class="thumbnail">
+                        <img class="thumb" data-original="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" src="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" alt="用DTcms做一个独立博客网站（响应式模板）"  style="display: block;">
+                    </span>
+                    <span class="text">用DTcms做一个独立博客网站（响应式模板）</span>
+                    <span class="muted"><i class="glyphicon glyphicon-time"></i>2016-11-01
+                    </span>
+                    <span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span>
+                </a>
+            </li>
+                          <li>
+                              <a title="用DTcms做一个独立博客网站（响应式模板）" href="showlist.html" >
+                    <span class="thumbnail">
+                        <img class="thumb" data-original="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" src="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" alt="用DTcms做一个独立博客网站（响应式模板）"  style="display: block;">
+                    </span>
+                                  <span class="text">用DTcms做一个独立博客网站（响应式模板）</span>
+                    <span class="muted"><i class="glyphicon glyphicon-time"></i>2016-11-01
+                    </span>
+                                  <span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a title="用DTcms做一个独立博客网站（响应式模板）" href="showlist.html" >
+                    <span class="thumbnail">
+                        <img class="thumb" data-original="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" src="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" alt="用DTcms做一个独立博客网站（响应式模板）"  style="display: block;">
+                    </span>
+                                  <span class="text">用DTcms做一个独立博客网站（响应式模板）</span>
+                    <span class="muted"><i class="glyphicon glyphicon-time"></i>2016-11-01
+                    </span>
+                                  <span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a title="用DTcms做一个独立博客网站（响应式模板）" href="showlist.html" >
+                    <span class="thumbnail">
+                        <img class="thumb" data-original="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" src="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" alt="用DTcms做一个独立博客网站（响应式模板）"  style="display: block;">
+                    </span>
+                                  <span class="text">用DTcms做一个独立博客网站（响应式模板）</span>
+                    <span class="muted"><i class="glyphicon glyphicon-time"></i>2016-11-01
+                    </span>
+                                  <span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a title="用DTcms做一个独立博客网站（响应式模板）" href="showlist.html" >
+                    <span class="thumbnail">
+                        <img class="thumb" data-original="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" src="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" alt="用DTcms做一个独立博客网站（响应式模板）"  style="display: block;">
+                    </span>
+                                  <span class="text">用DTcms做一个独立博客网站（响应式模板）</span>
+                    <span class="muted"><i class="glyphicon glyphicon-time"></i>2016-11-01
+                    </span>
+                                  <span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a title="用DTcms做一个独立博客网站（响应式模板）" href="showlist.html" >
+                    <span class="thumbnail">
+                        <img class="thumb" data-original="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" src="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" alt="用DTcms做一个独立博客网站（响应式模板）"  style="display: block;">
+                    </span>
+                                  <span class="text">用DTcms做一个独立博客网站（响应式模板）</span>
+                    <span class="muted"><i class="glyphicon glyphicon-time"></i>2016-11-01
+                    </span>
+                                  <span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a title="用DTcms做一个独立博客网站（响应式模板）" href="showlist.html" >
+                    <span class="thumbnail">
+                        <img class="thumb" data-original="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" src="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" alt="用DTcms做一个独立博客网站（响应式模板）"  style="display: block;">
+                    </span>
+                                  <span class="text">用DTcms做一个独立博客网站（响应式模板）</span>
+                    <span class="muted"><i class="glyphicon glyphicon-time"></i>2016-11-01
+                    </span>
+                                  <span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a title="用DTcms做一个独立博客网站（响应式模板）" href="showlist.html" >
+                    <span class="thumbnail">
+                        <img class="thumb" data-original="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" src="http://www.muzhuangnet.com/upload/201610/18/201610181739277776.jpg" alt="用DTcms做一个独立博客网站（响应式模板）"  style="display: block;">
+                    </span>
+                                  <span class="text">用DTcms做一个独立博客网站（响应式模板）</span>
+                    <span class="muted"><i class="glyphicon glyphicon-time"></i>2016-11-01
+                    </span>
+                                  <span class="muted"><i class="glyphicon glyphicon-eye-open"></i>88</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
+
+              </aside>
+        </section>
+
+        <footer id="xq_footer" style="background: #121212;">
+        <div class="container">
+            <div class="row" style="padding-top: 10px;border: 0;">
+                <p style="text-align: center;color: #efefef;">北方民族大学大数据团队 &copy;版权所有</p>
+            </div>
+        </div>
+    </footer>
+        <script src="{% static 'js/stu_js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/stu_js/jquery.ias.js' %}"></script>
+    <script src="{% static 'js/stu_js/stydy.js' %}"></script>
+    </body>
+</html>
