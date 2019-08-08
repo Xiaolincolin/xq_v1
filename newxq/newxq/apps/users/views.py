@@ -367,7 +367,9 @@ class AutoLogin(View):
                 password = (list(pd)[0])['password']
                 password = make_password(password)
                 user = authenticate(username=username, password=password)
+                print(user)
                 if user is not None:
+                    print('t')
                     login(request,user)
                     if id==str(1):
                         return HttpResponseRedirect('/main/')
