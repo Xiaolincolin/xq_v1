@@ -354,13 +354,16 @@ class ConfirmInterestView(View):
 class AutoLogin(View):
 
     def get(self,request,id,username,code):
+        print(code)
         if code!=0:
             result = AssitStudy.objects.filter(number=username,rangeCode=code)
+            print(len(result))
             if len(result)>0:
                 AssitStudy.objects.filter(number=username).update(rangeCode=0)
 
             id = str(id)
             if len(result)>0:
+                print("进来了")
                 pd = AssitStudy.objects.filter(number=username).values('password')
                 password = (list(pd)[0])['password']
                 user = authenticate(username=username, password=password)
