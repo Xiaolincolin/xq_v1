@@ -365,6 +365,7 @@ class AutoLogin(View):
             if len(result)>0:
                 pd = AssitStudy.objects.filter(number=username).values('password')
                 password = (list(pd)[0])['password']
+                print(username,password)
                 password = make_password(password)
                 user = authenticate(username=username, password=password)
                 print(user)
