@@ -100,7 +100,7 @@ DATABASES = {
         'NAME': 'newxq',
         'USER':'root',
         'PASSWORD':'xiaolin',
-        'HOST':'192.112.103.50',
+        'HOST':'193.112.103.50',
         'OPTIONS':{
         "init_command":"SET sql_mode='STRICT_TRANS_TABLES'",
         }
